@@ -30,7 +30,7 @@
     [_myCollectionView setCollectionViewLayout:_flowLayout];
     [_myCollectionView setBackgroundColor:[UIColor clearColor]];
     
-    recipeImages = [NSArray arrayWithObjects:@"angry_birds_cake.jpg", @"creme_brelee.jpg", @"egg_benedict.jpg", @"full_breakfast.jpg", @"green_tea.jpg", @"ham_and_cheese_panini.jpg", @"ham_and_egg_sandwich.jpg", @"hamburger.jpg", @"instant_noodle_with_egg.jpg", @"japanese_noodle_with_pork.jpg", @"mushroom_risotto.jpg", @"noodle_with_bbq_pork.jpg", @"starbucks_coffee.jpg", @"thai_shrimp_cake.jpg", @"vegetable_curry.jpg", @"white_chocolate_donut.jpg", nil];
+    recipeImages = [NSArray arrayWithObjects:@"angry_birds_cake.jpg", @"creme_brelee.jpg", @"egg_benedict.jpg", @"full_breakfast.jpg", @"green_tea.jpg", @"ham_and_cheese_panini.jpg", @"ham_and_egg_sandwich.jpg", @"hamburger.jpg", @"instant_noodle_with_egg.jpg", @"japanese_noodle_with_pork.jpg", @"mushroom_risotto.jpg", @"noodle_with_bbq_pork.jpg", @"starbucks_coffee.jpg", @"thai_shrimp_cake.jpg", @"vegetable_curry.jpg", @"white_chocolate_donut.jpg", @"", @"", nil];
     
     NSLog(@"view controller did load");
 }
@@ -81,14 +81,22 @@
     } else {
         _pageControl.currentPage = currentPage;
     }
-    NSLog(@"%f", fmodf(currentPage, 1.0f));
-//    NSLog(@"scrolled (%f)", _myCollectionView.contentOffset.x / pageWidth);
+    NSLog(@"finishPage: %d", _pageControl.currentPage);
 }
 
+#pragma mark - Next & Prev Page Button
+
 - (IBAction)prevPage:(id)sender {
-//    _pageControl.currentPage;
-//    _myCollectionView.contentOffset.x;
-    [_myCollectionView setContentOffset:CGPointMake(_myCollectionView.frame.size.width * (_pageControl.currentPage - 1), 0)];
-    NSLog(@"prev button pressed %f", _myCollectionView.frame.size.width * _pageControl.currentPage);
+    _pageControl.currentPage--;
+    CGFloat prevPageX = _myCollectionView.frame.size.width * MAX(_pageControl.currentPage, 0);
+    [_myCollectionView setContentOffset:CGPointMake(prevPageX, 0) animated:YES];
+    NSLog(@"NewPage: %d", _pageControl.currentPage);
+}
+
+- (IBAction)nextPage:(id)sender {
+    _pageControl.currentPage++;
+    CGFloat prevPageX = _myCollectionView.frame.size.width * MIN(_pageControl.currentPage, 5);
+    [_myCollectionView setContentOffset:CGPointMake(prevPageX, 0) animated:YES];
+    NSLog(@"NewPage: %d", _pageControl.currentPage);
 }
 @end

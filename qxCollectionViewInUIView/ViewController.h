@@ -15,4 +15,5 @@
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 
 - (IBAction)prevPage:(id)sender;
+- (IBAction)nextPage:(id)sender;
 @end
